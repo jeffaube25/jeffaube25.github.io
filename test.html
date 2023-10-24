@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagline Animation</title>
+    <style>
+        .typewriter-text {
+            overflow: hidden; /* Hide text overflow */
+            border-right: .15em solid orange; /* Typing cursor */
+            white-space: nowrap; /* Keep text on one line */
+            margin: 0 auto; /* Center text */
+            letter-spacing: .15em; /* Letter spacing */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="typewriter-text" id="tagline"></h1>
+
+    <script>
+        const words = ['Development', 'Data', 'Leadership']; // Words to display
+        const typingSpeed = 100; // Typing speed (milliseconds)
+        const backspaceSpeed = 50; // Backspacing speed (milliseconds)
+        const delayBetweenWords = 1000; // Delay between words (milliseconds)
+
+        const taglineElement = document.getElementById('tagline');
+        let wordIndex = 0;
+        let letterIndex = 0;
+        let isTyping = true;
+
+        function typeWord() {
+            if (letterIndex < words[wordIndex].length) {
+                taglineElement.innerHTML += words[wordIndex][letterIndex];
+                letterIndex++;
+                setTimeout(typeWord, typingSpeed);
+            } else {
+                isTyping = false;
+                setTimeout(backspaceWord, delayBetweenWords);
+            }
+        }
+
+        function backspaceWord() {
+            if (letterIndex > 0) {
+                taglineElement.innerHTML = taglineElement.innerHTML.slice(0, -1);
+                letterIndex--;
+                setTimeout(backspaceWord, backspaceSpeed);
+            } else {
+                isTyping = true;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(typeWord, typingSpeed);
+            }
+        }
+
+        typeWord(); // Start the animation
+    </script>
+</body>
+</html>
